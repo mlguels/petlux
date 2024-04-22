@@ -9,7 +9,7 @@ export default function PetList() {
   const { pets, handleChangeSelectedId, selectedPetId } = usePetContext();
 
   return (
-    <ul className="bg-white border-b border-black/[0.08]">
+    <ul className="bg-white border-b border-light">
       {pets.map((pet) => (
         <li key={pet.id}>
           <button
@@ -20,7 +20,7 @@ export default function PetList() {
             )}
           >
             <Image
-              src={pet.imageUrl}
+              src={pet.imageUrl || ""}
               width={45}
               height={45}
               alt="Pet image"

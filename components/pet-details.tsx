@@ -41,7 +41,7 @@ function TopBar({ pet }: Props) {
   return (
     <div className="flex items-center bg-white px-8 py-5 border-b border-light">
       <Image
-        src={pet.imageUrl}
+        src={pet.imageUrl || ""}
         alt="Selected pet image"
         height={75}
         width={75}
