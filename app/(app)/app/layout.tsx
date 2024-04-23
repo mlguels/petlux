@@ -1,9 +1,11 @@
+import { Pet } from "@/lib/types";
+
 import AppFooter from "@/components/app-footer";
 import AppHeader from "@/components/app-header";
 import BackgroundPattern from "@/components/background-pattern";
+
 import PetContextProvider from "@/context/pet-context-provider";
 import SearchContextProvider from "@/context/search-context-provider";
-import { Pet } from "@/lib/types";
 
 export default async function Layout({
   children,
