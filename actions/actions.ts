@@ -7,8 +7,10 @@ export async function addPet(formdata) {
     data: {
       name: formdata.get("name"),
       ownerName: formdata.get("ownerName"),
-      imageUrl: formdata.get("imageUrl"),
       age: +formdata.get("age"),
+      imageUrl:
+        formdata.get("imageUrl") ||
+        "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
       notes: formdata.get("notes"),
     },
   });
