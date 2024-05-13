@@ -42,8 +42,23 @@ export default function PetForm({
   //   onFormSubmission();
   // };
 
+  /*
+    - We use action instead of onSubmit
+    - Downside of ussing onSubmit is because you lose progressive enhancement
+    - The server action works without javascript
+    - It doesnt need to send initial javascript to the client
+    - But in the real world you also want to do other things,
+    like showing a loading spinner, or showing a success message,
+    its not good for peformances but it is still better than onSubmit
+  */
   return (
-    <form action={addPet} className="flex flex-col">
+    <form
+      action={async (formData) => {
+        await addPet(formData);
+        onFormSubmission();
+      }}
+      className="flex flex-col"
+    >
       <div className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="name">Name</Label>
