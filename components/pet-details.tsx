@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePetContext } from "@/lib/hooks";
 import { Pet } from "@/lib/types";
 import PetButton from "./pet-button";
+import { deletePet } from "@/actions/actions";
 
 export default function PetDetails() {
   const { selectedPet } = usePetContext();
@@ -56,7 +57,7 @@ function TopBar({ pet }: Props) {
       <div className="ml-auto space-x-2">
         <PetButton actionType="edit">Edit</PetButton>
         <PetButton
-          onClick={() => handleCheckoutPet(pet.id)}
+          onClick={async () => await deletePet(pet.id)}
           actionType="checkout"
         >
           Checkout
