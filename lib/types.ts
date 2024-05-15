@@ -1,8 +1,4 @@
-export type Pet = {
-  id: string;
-  name: string;
-  ownerName: string;
-  imageUrl: string | undefined;
-  age: number;
-  notes: string;
-};
+import { Pet } from "@prisma/client";
+
+// Omitting the id, createdAt, and updatedAt fields from the Pet type
+export type PetEssentials = Omit<Pet, "id" | "createdAt" | "updatedAt">;
