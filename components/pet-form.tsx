@@ -1,13 +1,16 @@
 "use client";
 
-import { usePetContext } from "@/lib/hooks";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
+import { usePetContext } from "@/lib/hooks";
+
 import PetFormBtn from "./pet-form-btn";
-import { useForm } from "react-hook-form";
 
 type PetFormProps = {
   actionType: "add" | "edit";
@@ -22,6 +25,21 @@ type TPetForm = {
   notes: string;
 };
 
+const petFormSchema = z.object({
+  name: z.string().trim().min(1, { message: "Name is required" }),
+  ownerName: z
+    .string()
+    .trim()
+    .min(1, { message: "Owner name is required" })
+    .max(50, { message: "Owner name is too long" }),
+  imageUrl: z.union([
+    z.literal(""),
+    z.string().trim().url({ message: "Invalid image url" }),
+  ]),
+  age: z.coerce.number().int().positive().max(100),
+  notes: z.union([z.literal(""), z.string().trim().max(1000)]),
+});
+
 export default function PetForm({
   actionType,
   onFormSubmission,
@@ -30,8 +48,11 @@ export default function PetForm({
 
   const {
     register,
+    trigger,
     formState: { errors },
-  } = useForm<TPetForm>();
+  } = useForm<TPetForm>({
+    resolver: zodResolver(petFormSchema),
+  });
 
   /*
     - We use action instead of onSubmit
@@ -46,6 +67,9 @@ export default function PetForm({
   return (
     <form
       action={async (formData) => {
+        const result = await trigger();
+        if (!result) return;
+
         onFormSubmission();
 
         const petData = {
