@@ -3,10 +3,18 @@
 import { revalidatePath } from "next/cache";
 
 import prisma from "@/lib/db";
-
+import { signIn } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
+// -- user actions --
 
+export async function logIn(formData: FormData) {
+  const authData = Object.fromEntries(formData.entries());
+
+  await signIn("credentials", authData);
+}
+
+// -- pet actions --
 export async function addPet(pet: unknown) {
   await sleep(1000);
 
