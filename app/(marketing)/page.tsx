@@ -9,7 +9,7 @@ export default function Home() {
     <main className="bg-[#5DC9A8] min-h-screen flex flex-col lg:flex-row items-center justify-center gap-10">
       <Image
         src="https://bytegrad.com/course-assets/react-nextjs/petsoft-preview.png"
-        alt="Preview of PetSoft"
+        alt="Preview of Petlux"
         width={519}
         height={472}
         quality={100}
@@ -22,7 +22,7 @@ export default function Home() {
           ease
         </h1>
         <p className="text-2xl font-medium max-w-[600px]">
-          Use PetSoft to easily keep track of pets under your care. Get lifetime
+          Use Petlux to easily keep track of pets under your care. Get lifetime
           access for $299.
         </p>
         <div className="mt-10 space-x-3">
