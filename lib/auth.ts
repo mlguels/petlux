@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+
 import prisma from "./db";
 import bcrypt from "bcryptjs";
 
@@ -30,6 +31,7 @@ const config = {
 
         if (!passwordsMatch) {
           console.log("Invalid credentials");
+          return null;
         }
 
         return user;
@@ -39,11 +41,17 @@ const config = {
   callbacks: {
     authorized: ({ auth, request }) => {
       // runs on every request with middleware
+      const isLoggedIn = Boolean(auth?.user);
       const isTryingToAccessApp = request.nextUrl.pathname.includes("/app");
 
-      if (isTryingToAccessApp) {
+      if (!isLoggedIn && isTryingToAccessApp) {
         return false;
-      } else {
+      }
+      if (isLoggedIn && isTryingToAccessApp) {
+        return true;
+      }
+
+      if (!isTryingToAccessApp) {
         return true;
       }
     },
